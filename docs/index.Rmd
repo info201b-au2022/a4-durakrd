@@ -1,7 +1,7 @@
 ---
-title: "Your A4 Report Title (TODO: Revise title)"
-author: "Your Name"
-date: '2022-11-01'
+title: "Systemic Racism in the U.S. Criminal Justice System"
+author: "Krithik Duraisamy"
+date: '2022-11-21'
 output: html_document
 ---
 
@@ -10,36 +10,39 @@ source("../source/a4-helpers.R")
 source("../source/analysis.R")
 ```
 
-## Abstract 
-[TODO: Include a short abstract (about 50 words)]
+## Section 1: Introduction
 
-# Test (TODO: Remove before submission!!)
-```{r echo=FALSE}
-q1_string <- test_query1()
-num <- 5
-```
-As you know, this is a markdown report. The [R Markdown Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf) is **useful!**
+The goal of this report is to expose inequities in US prison populations throughout the years. Through data collected by the [Vera Institute](https://www.vera.org), trends in prison population demographics can be analyzed. The primary purpose of analyzing prison population data is to identify systemic forms of discrimination that persist in the criminal justice system. This purpose aligns with one of the core values of *Data Feminism* that inquires data scientists to challenge power structures within society. Direct stakeholders that are impacted by this research are politicians, prosecutors, law enforcement, and detained individuals who engage with the criminal justice system in America. Indirect stakeholders are communities and families that are harmed by over policing and the inequitable criminal justice system in America. By primarily focusing on black populations, it is possible to identify racial biases in the criminal justice system.
 
-* Here's a test of a dynamic variable. Say **"`r q1_string`!!!** 
-* Here's another test. A vector
-of numbers: `r test_query2(num)`.
+## Section 2: Data Summary
 
-Recall that _{r echo=TRUE}_ can be used to display the code, 
-which is very useful when developing and debugging a report. Here's an example: 
+This report uses several variables from the Vera Institute to create visualizations. Continuous variables corresponding to total prison populations, white prison populations, and black prison populations on a county level by year were essential to creating visualization in this report. Furthermore, categorical variables corresponding to the type of county helped identify additional trends. From this data set several calculations and visualizations were done. For instance, in 2018, there were approximately **`r jail_total_pop()`** incarcerated individuals in the US prison system. From 1970 to 2018, data was collected for `r ncol(incarceration_df)` variables with `r prettyNum(nrow(incarceration_df), big.mark = ",")` rows. The primary variables of focus were the ones corresponding to black prison and total populations. From these variables, calculation were conducted. Despite taking up only `r total_perc_black()` of the total U.S. population in 2018, black people disproportionately comprise the prison population at `r jail_perc_black()`. These statistics are indicative of a criminal justice system entrenched in systemic racism.
 
-```{r echo=TRUE}
-num <- 5
-sum <- sum(test_query2(num))
-print(sum)
+## Section 3: Growth of the U.S. Prison Population
+```{r echo=FALSE, include = TRUE, eval=TRUE, message=FALSE}
+plot_jail_pop_for_us()
 ```
 
-## Introduction 
-[TODO]
+The visualization above is a histogram that depicts the growing jail population from 1970 to 2018. Initially, the jail population was under 200,000 however, in 2008, the jail population peaked at around 800,000. Since then, there has been a slight decrease in the jail population. However, the jail population remains substantially higher than it was in 1970.
 
-## Data Summary 
-[TODO]
+## Section 4: Growth of Prison Population by State 
+```{r eval=TRUE, echo=FALSE, message=FALSE, include=TRUE}
+plot_jail_pop_by_states(c("WA", "CA", "NY", "TX", "FL", "WY"))
+```
 
-[TODO ... other sections ... See Canvas for details]
+The visualization above is a line plot that depicts the growing jail population for several states from 1970 to 2018. California had and continues to have the highest number of incarcerated individuals in the US. The number of people incarcerated in California began to spike in 1978 and peaked at around 80,000 in 2008. Wyoming was also chosen since it has some of the lowest existing incarceration numbers due to its small population.
 
-_All the very best with your work!_
+## Section 5: Inequality Among Black and White Prison Populations by County Type
+```{r eval=TRUE, echo=FALSE, message=FALSE, include=TRUE}
+plot_trends()
+```
+
+The visualization above depicts 4 line plots that corresponds to the type of county that the data was collected from. The incarceration rate of black people is roughly 3 to 4 times higher than the white incarceration rate. In rural counties, the incarceration rates are the highest for black people. The incarceration rate for black people in rural counties peaked in 2008 at roughly 15 per a 1,000 black people. Meanwhile the incarceration rate for white people in rural counties in 2008 was roughly 3 per a 1,000 white people.
+
+## Section 6: Uneven Geographic Distribution of Black Jail Populations
+```{r eval=TRUE, echo=FALSE, message=FALSE, include=TRUE}
+plot_map()
+```
+
+The choropleth map depicts the percentage of the total prison population that is black for each state in 2018. States such as Connecticut and Rhode Island had percents of 0. Meanwhile states in the southwest such as Georgia and Louisiana have the highest percents at around 80%. The map depicts an uneven distribution of percentages indicating how varying state and local legislation continue to affect black incarceration rates.
 
